@@ -1,0 +1,173 @@
+
+<!DOCTYPE html>
+<html lang="en" class="loading">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>记一次数据处理 - 九月有风</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate">
+    <meta name="keywords" content="tpx0509,"> 
+    <meta name="description" content="田某的个人博客,记录一次在工作中的遇到的问题，一段数据处理，一位老师，一段让我产生跪感的代码。
+在工作中，一个后台管理的项目，后端接口返回的数据如下。
+真实数据没有进行截图，以下是我自己模拟
+返回的需要处理的数据就,"> 
+    <meta name="author" content="peixin.tian"> 
+    <link rel="alternative" href="atom.xml" title="九月有风" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <link rel="stylesheet" href="/css/diaspora.css">
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({
+              google_ad_client: "ca-pub-8691406134231910",
+              enable_page_level_ads: true
+         });
+    </script>
+    <script async custom-element="amp-auto-ads" src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+    </script>
+</head>
+</html>
+<body class="loading">
+    <span id="config-title" style="display:none">九月有风</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="icon-home image-icon" href="javascript:;" data-url="http://yoursite.com"></a>
+    <div title="播放/暂停" class="icon-play"></div>
+    <h3 class="subtitle">记一次数据处理</h3>
+    <div class="social">
+        <!--<div class="like-icon">-->
+            <!--<a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+        <!--</div>-->
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">记一次数据处理</h1>
+        <div class="stuff">
+            <span>九月 09, 2019</span>
+            
+  <ul class="post-tags-list"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/标签1/">标签1</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/标签2/">标签2</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <p>记录一次在工作中的遇到的问题，一段数据处理，一位老师，一段让我产生跪感的代码。</p>
+<p>在工作中，一个后台管理的项目，后端接口返回的数据如下。</p>
+<p>真实数据没有进行截图，以下是我自己模拟</p>
+<p>返回的需要处理的数据就是类似如下的一个数组。</p>
+<ol>
+<li>返回的数据有一级，二级，三级，四级，五级。。。。 他们之间靠parent的objectId关联。</li>
+<li>主要用到的属性就是objectId和parent对象，当然还有其他好多属性，我这里只是随便列举。</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> results = [</span><br><span class="line">    &#123;</span><br><span class="line">        objectId : <span class="string">'111111'</span>,</span><br><span class="line">        name : <span class="string">'嘎嘎嘎'</span>,</span><br><span class="line">        age : <span class="number">123</span>,</span><br><span class="line">        job : <span class="string">'工程师'</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        objectId : <span class="string">'222222'</span>,</span><br><span class="line">        name : <span class="string">'嘎嘎嘎2'</span>,</span><br><span class="line">        age : <span class="number">123</span>,</span><br><span class="line">        job : <span class="string">'工程师'</span>,</span><br><span class="line">        parent : &#123;</span><br><span class="line">             objectId : <span class="string">'111111'</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        objectId : <span class="string">'333333'</span>,</span><br><span class="line">        name : <span class="string">'嘎嘎嘎3'</span>,</span><br><span class="line">        age : <span class="number">123</span>,</span><br><span class="line">        job : <span class="string">'工程师'</span>,</span><br><span class="line">        parent : &#123;</span><br><span class="line">             objectId : <span class="string">'222222'</span>,</span><br><span class="line">             parent : &#123;</span><br><span class="line">                 objectId : <span class="string">'111111'</span></span><br><span class="line">             &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        objectId : <span class="string">'444444'</span>,</span><br><span class="line">        name : <span class="string">'嘎嘎嘎4'</span>,</span><br><span class="line">        age : <span class="number">123</span>,</span><br><span class="line">        job : <span class="string">'工程师'</span>,</span><br><span class="line">        parent : &#123;</span><br><span class="line">             objectId : <span class="string">'333333'</span>,</span><br><span class="line">             parent : &#123;</span><br><span class="line">                 objectId : <span class="string">'222222'</span>,</span><br><span class="line">                 parent : &#123;</span><br><span class="line">                      objectId : <span class="string">'111111'</span></span><br><span class="line">                 &#125;</span><br><span class="line">             &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        objectId : <span class="string">'565656'</span>,</span><br><span class="line">        name : <span class="string">'嘎嘎嘎5'</span>,</span><br><span class="line">        age : <span class="number">123</span>,</span><br><span class="line">        job : <span class="string">'工程师'</span>,</span><br><span class="line">        parent : &#123;</span><br><span class="line">            objectId : <span class="string">'787878'</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        objectId : <span class="string">'787878'</span>,</span><br><span class="line">        name : <span class="string">'嘎嘎嘎6'</span>,</span><br><span class="line">        age : <span class="number">123</span>,</span><br><span class="line">        job : <span class="string">'工程师'</span></span><br><span class="line">    &#125;,</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p>以下是我的处理方法。花了一天半时间没有写完，卡死了。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br></pre></td><td class="code"><pre><span class="line">handleDataTotree(data) &#123; <span class="comment">// 处理为树状可用数据</span></span><br><span class="line">            </span><br><span class="line">            <span class="keyword">let</span> tempSet = <span class="keyword">new</span> <span class="built_in">Set</span>(data)</span><br><span class="line">            <span class="keyword">let</span> tempObject = &#123;&#125;</span><br><span class="line">            <span class="keyword">let</span> ruleData = []</span><br><span class="line">            <span class="keyword">if</span>(data &amp;&amp; data.length &gt; <span class="number">0</span>) &#123;</span><br><span class="line">               <span class="keyword">return</span> <span class="keyword">this</span>.handleData(tempSet,tempObject,ruleData) </span><br><span class="line">            &#125;</span><br><span class="line">         &#125;,</span><br><span class="line">         handleData(tempSet,tempObject,ruleData) &#123;</span><br><span class="line">            <span class="keyword">let</span> isContinue;</span><br><span class="line">            <span class="keyword">if</span>(tempSet.size === <span class="number">0</span>) &#123;</span><br><span class="line">                 <span class="keyword">return</span> ruleData</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">try</span>&#123;</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">let</span> item <span class="keyword">of</span> tempSet) &#123;</span><br><span class="line">                    <span class="keyword">if</span>(!item.parent) &#123; <span class="comment">// 一级栏目</span></span><br><span class="line">                        item.columnLevel = <span class="number">1</span></span><br><span class="line">                        tempSet.delete(item)</span><br><span class="line">                        tempObject[item.objectId] = item</span><br><span class="line">                    &#125;<span class="keyword">else</span> &#123; <span class="comment">// 处理子级栏目</span></span><br><span class="line">                        <span class="keyword">let</span> firstParent = tempObject[item.parent.objectId]</span><br><span class="line">                        <span class="keyword">if</span>(firstParent) &#123; <span class="comment">// 处理二级栏目</span></span><br><span class="line">                            item.columnLevel = <span class="number">2</span></span><br><span class="line">                            tempSet.delete(item)</span><br><span class="line">                            firstParent.children ? firstParent.children.push(item) : firstParent.children = [item]</span><br><span class="line">                        &#125;<span class="keyword">else</span> &#123;  </span><br><span class="line">                            <span class="comment">// 这里有两种可能,</span></span><br><span class="line">                            <span class="comment">// 1, 当前是二级栏目，但一级栏目还未添加</span></span><br><span class="line">                            <span class="comment">// 2, 当前是三四五六七...级栏目</span></span><br><span class="line">                            <span class="keyword">if</span>(!item.parent.parent) &#123; <span class="comment">// 只有一层parent =&gt; 当前二级栏目,但一级栏目还没有添加</span></span><br><span class="line">                                item.columnLevel = <span class="number">2</span></span><br><span class="line">                                isContinue = <span class="literal">true</span> <span class="comment">// 记录，本次循环完再执行一次过滤后的set</span></span><br><span class="line">                                <span class="keyword">continue</span> </span><br><span class="line">                            &#125;</span><br><span class="line">                            <span class="comment">// 处理三四五六七...栏目</span></span><br><span class="line">                            <span class="keyword">let</span> parentRootObjectId = <span class="keyword">this</span>.choseParentId(item); <span class="comment">// 找到当前栏目的一级栏目的objectId</span></span><br><span class="line">                            <span class="keyword">let</span> currentLevel = item.columnLevel; <span class="comment">// 当前层级</span></span><br><span class="line">                            <span class="keyword">let</span> child = tempObject[parentRootObjectId];</span><br><span class="line">                            <span class="keyword">if</span>(child) &#123; <span class="comment">// child存在当前栏目的一级栏目已经创建</span></span><br><span class="line">                                <span class="built_in">console</span>.log(currentLevel)</span><br><span class="line">                                <span class="keyword">let</span> childArray = child.children</span><br><span class="line">                                <span class="keyword">if</span>(!childArray) &#123; <span class="comment">// 二级栏目还未创建</span></span><br><span class="line">                                    isContinue = <span class="literal">true</span></span><br><span class="line">                                    <span class="keyword">continue</span></span><br><span class="line">                                &#125;<span class="keyword">else</span> &#123;  <span class="comment">// 二级栏目已经创建</span></span><br><span class="line">                                    <span class="keyword">for</span>(<span class="keyword">let</span> i=<span class="number">0</span>,len=childArray.length; i&lt;len; i++) &#123;</span><br><span class="line">                                        <span class="keyword">if</span>( item.parent.objectId === childArray[i].objectId ) &#123; <span class="comment">// 当前是三级栏目</span></span><br><span class="line">                                            tempSet.delete(item)</span><br><span class="line">                                            childArray[i].children ?  childArray[i].children.push(item) :  childArray[i].children = [item]</span><br><span class="line">                                            <span class="keyword">break</span> <span class="comment">// 跳出本循环</span></span><br><span class="line">                                        &#125;<span class="keyword">else</span> &#123; </span><br><span class="line">                                            <span class="comment">/*</span></span><br><span class="line"><span class="comment">                                                1,当前是三级栏目,但二级栏目还未添加</span></span><br><span class="line"><span class="comment">                                                2,更深级栏目</span></span><br><span class="line"><span class="comment">                                            */</span></span><br><span class="line">                                            isContinue = <span class="literal">true</span></span><br><span class="line">                                            <span class="keyword">continue</span></span><br><span class="line">                                        &#125; </span><br><span class="line">                                   &#125; </span><br><span class="line">                                &#125;</span><br><span class="line">                            &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                                 <span class="comment">//  一级栏目还未创建</span></span><br><span class="line">                                 isContinue = <span class="literal">true</span></span><br><span class="line">                                 <span class="keyword">continue</span></span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span>(isContinue) &#123;</span><br><span class="line">                    isContinue = <span class="literal">false</span>; <span class="comment">// 清除掉， 本次进行循环一级栏目已经全部添加</span></span><br><span class="line">                    <span class="keyword">return</span>  <span class="keyword">this</span>.handleData(tempSet,tempObject,ruleData)</span><br><span class="line">                &#125;</span><br><span class="line">                ruleData = <span class="built_in">Object</span>.values(tempObject)</span><br><span class="line">                <span class="built_in">console</span>.log(<span class="string">'tempSet'</span>,tempSet)</span><br><span class="line">                <span class="built_in">console</span>.log(<span class="string">'tempObject'</span>,tempObject)</span><br><span class="line">                <span class="keyword">return</span> ruleData</span><br><span class="line">            &#125;<span class="keyword">catch</span>(e)&#123;</span><br><span class="line">                <span class="built_in">console</span>.error(<span class="string">'数据处理有误=&gt;'</span>,e)</span><br><span class="line">            &#125;</span><br><span class="line">         &#125;,</span><br><span class="line">         choseParentId(option) &#123; <span class="comment">// 寻找根parent.objectId</span></span><br><span class="line">            <span class="keyword">if</span>(option.columnLevel) &#123;</span><br><span class="line">                 ++option.columnLevel</span><br><span class="line">            &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                 option.columnLevel = <span class="number">2</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(option.parent) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">this</span>.choseParentId(option.parent)</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> option.objectId</span><br><span class="line">         &#125;</span><br></pre></td></tr></table></figure>
+
+<p>额，，有点乱。只处理到了是第三级栏目的情况。根本无法继续处理第四级，第五级，第n级的栏目。。。</p>
+<p>如下是，何老师何大神的代码</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">handleDataTotree(data) &#123; <span class="comment">// 处理为树状可用数据</span></span><br><span class="line">           </span><br><span class="line">           <span class="keyword">let</span> tempSet = <span class="keyword">new</span> <span class="built_in">Set</span>(data)</span><br><span class="line">           <span class="keyword">let</span> tempObject = &#123;&#125;</span><br><span class="line">           <span class="keyword">let</span> ruleData = []</span><br><span class="line">           <span class="keyword">if</span>(data &amp;&amp; data.length &gt; <span class="number">0</span>) &#123;</span><br><span class="line">              <span class="keyword">return</span> <span class="keyword">this</span>.handleData(tempSet,tempObject,ruleData) </span><br><span class="line">           &#125;</span><br><span class="line">           </span><br><span class="line">           </span><br><span class="line">        &#125;,</span><br><span class="line">        handleData(tempSet,tempObject,ruleData) &#123;</span><br><span class="line">           <span class="comment">// let isContinue;</span></span><br><span class="line">		</span><br><span class="line">		<span class="built_in">console</span>.log(<span class="string">'tempSet'</span>,tempSet)</span><br><span class="line">		<span class="built_in">console</span>.log(<span class="string">'tempObject'</span>,tempObject)</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">let</span> tempdict = &#123;&#125;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">let</span> item <span class="keyword">of</span> tempSet) &#123;</span><br><span class="line">               <span class="keyword">if</span>(!item.parent) &#123; <span class="comment">// 一级栏目</span></span><br><span class="line">                   tempSet.delete(item)</span><br><span class="line">                   tempObject[item.objectId] = item</span><br><span class="line">                   item[<span class="string">'children'</span>] = []</span><br><span class="line">                   tempdict[item.objectId] = item[<span class="string">'children'</span>]</span><br><span class="line">               &#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">let</span> isbreak = <span class="literal">false</span></span><br><span class="line">		<span class="keyword">while</span>(!isbreak &amp;&amp; tempSet.size)&#123;</span><br><span class="line">			<span class="keyword">let</span> orn_len =  tempSet.size</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">let</span> item <span class="keyword">of</span> tempSet)&#123;</span><br><span class="line">				<span class="keyword">if</span>(tempdict[item.parent.objectId])&#123; </span><br><span class="line">		            tempSet.delete(item)</span><br><span class="line">					<span class="keyword">let</span> children = tempdict[item.parent.objectId]</span><br><span class="line">					children.push(item)</span><br><span class="line">					item[<span class="string">'children'</span>] = []</span><br><span class="line">					tempdict[item.objectId] = item[<span class="string">'children'</span>]</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">let</span> new_len = tempSet.size</span><br><span class="line">			<span class="keyword">if</span>(orn_len === new_len || new_len===<span class="number">0</span>)&#123;</span><br><span class="line">				isbreak = <span class="literal">true</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125; </span><br><span class="line">           <span class="built_in">console</span>.log(<span class="string">'tempdict'</span>,tempdict)</span><br><span class="line">		<span class="built_in">console</span>.log(<span class="string">'new_tempObject'</span>,tempObject)</span><br><span class="line">		ruleData = <span class="built_in">Object</span>.values(tempObject)</span><br><span class="line">		<span class="keyword">return</span> ruleData</span><br><span class="line">        &#125;,</span><br></pre></td></tr></table></figure>
+
+<p>我佛了！！！！ 完~</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="http://domain.com/awesome.mp3">
+            </audio>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+        data-ae='false'
+        data-ci='a603de6b40f9aebc6836'
+        data-cs='2f2278f6e6af6d2bccf35eb510b0296b6e83e544'
+        data-r='tpx0509.github.io'
+        data-o='tpx0509'
+        data-a='tpx0509'
+        data-d='true'
+    >查看评论</div>
+
+
+    </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/diaspora.js"></script>
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>
